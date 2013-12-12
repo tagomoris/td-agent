@@ -48,6 +48,11 @@ cp ../redhat/td-agent.init SOURCES
 if [ -f ../redhat/td-agent.conf.custom ]; then
     cp ../redhat/td-agent.conf.custom SOURCES
 fi
+# locate pre-downloaded gems
+if [ -d ../plugin_gems ]; then
+    mkdir SOURCES/plugins
+    cp ../plugin_gems/*.gem SOURCES
+fi
 # build
 if [ -z "$rpm_dist" ]; then
   my_rpmbuild -v -ba --clean SPECS/td-agent.spec
