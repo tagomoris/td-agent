@@ -122,12 +122,14 @@ fi
 
 %files
 %defattr(-,root,root)
-%config(noreplace) %{_sysconfdir}/td-agent/td-agent.conf
+%config(noreplace,missingok) %{_sysconfdir}/td-agent/td-agent.conf
 /usr/bin/td
 /usr/sbin/td-agent
 /usr/%{_lib}/fluent
 /etc/td-agent/td-agent.conf.tmpl
 /etc/init.d/td-agent
+/etc/td-agent/logrotate.d/td-agent.logrotate
+/etc/td-agent/prelink.conf.d/td-agent.conf
 /var/log/td-agent
 
 %changelog
