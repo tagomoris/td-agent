@@ -50,8 +50,8 @@ if [ -f ../redhat/td-agent.conf.custom ]; then
 fi
 # locate pre-downloaded gems
 if [ -d ../plugin_gems ]; then
-    mkdir BUILD/$dst/plugins
-    cp ../plugin_gems/*.gem BUILD/$dst/plugins
+    mkdir -p SOURCES/plugins
+    cp ../plugin_gems/*.gem SOURCES/plugins
 fi
 # build
 if [ -z "$rpm_dist" ]; then
