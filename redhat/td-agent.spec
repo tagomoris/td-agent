@@ -9,6 +9,7 @@ Vendor: Treasure Data, Inc.
 URL: http://treasure-data.com/
 Source: %{name}-%{version}.tar.gz
 Source1: %{name}.init
+# Source2: %{name}.conf.custom
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-%(%{__id_u} -n)
 
 Requires: /usr/sbin/useradd /usr/sbin/groupadd
@@ -37,6 +38,8 @@ BuildRequires: gcc gcc-c++ pkgconfig libtool openssl-devel readline-devel libxsl
 
 %configure
 make %{?_smp_mflags}
+# make extplugin EXTGEM=fluent-plugin-ping-message-0.1.0.gem
+# make extplugin EXTGEM=...
 
 %install
 # cleanup first
@@ -118,10 +121,11 @@ fi
 
 %files
 %defattr(-,root,root)
+%config(noreplace) %{_sysconfdir}/td-agent/td-agent.conf
 /usr/bin/td
 /usr/sbin/td-agent
 /usr/%{_lib}/fluent
-/etc/td-agent
+/etc/td-agent/td-agent.conf.tmpl
 /etc/init.d/td-agent
 /var/log/td-agent
 

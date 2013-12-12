@@ -46,6 +46,11 @@ plugins:
 		fi; \
 	done
 
+extplugin:
+	if [ ! -f "$(srcdir)/plugins/$(EXTGEM)" ]; then \
+	    wget "http://rubygems.org/downloads/$(EXTGEM)" -O "$(srcdir)/plugins/$(EXTGEM)"; \
+	fi
+
 install: install-recursive
 	for gem in $(srcdir)/deps/*.gem; do \
 		RUBYLIB="$(DEST_RUBY_LIBDIR)/1.9.1:$(DEST_RUBY_LIBDIR)/1.9.1/$(shell $(DEST_RUBY) --version | sed 's/.*\[\(.*\)\]/\1/')" \
@@ -60,15 +65,18 @@ install: install-recursive
 		RUBYLIB="$(DEST_RUBY_LIBDIR)/1.9.1:$(DEST_RUBY_LIBDIR)/1.9.1/$(shell $(DEST_RUBY) --version | sed 's/.*\[\(.*\)\]/\1/')" \
 			$(DEST_GEM) install --no-rdoc --no-ri "$$gem"; \
 	done
-	for gem in $(PLUGINS); do \
+	for gem in $(srcdir)/plugins/*.gem; do \
 		RUBYLIB="$(DEST_RUBY_LIBDIR)/1.9.1:$(DEST_RUBY_LIBDIR)/1.9.1/$(shell $(DEST_RUBY) --version | sed 's/.*\[\(.*\)\]/\1/')" \
-			$(DEST_GEM) install --no-rdoc --no-ri "$(srcdir)/plugins/$$gem"; \
+			$(DEST_GEM) install --no-rdoc --no-ri "$$gem"; \
 	done
 	rm -fR $(DEST_RUBY_LIBDIR)/gems/1.9.1/gems/bson-*/bin/b2json
 	rm -fR $(DEST_RUBY_LIBDIR)/gems/1.9.1/gems/bson-*/bin/j2bson
 	rm -fR $(DEST_RUBY_LIBDIR)/gems/1.9.1/gems/td-*/dist/resources/pkg/td
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent
 	cp -f $(srcdir)/td-agent.conf $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf.tmpl
+	if [ x"$(srcdir)/td-agent.conf.custom" != "x" ]; \
+	    cp -f $(srcdir)/td-agent.conf.custom $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf; \
+	if
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent/prelink.conf.d
 	cp -f $(srcdir)/td-agent.prelink.conf $(DESTDIR)$(sysconfdir)/td-agent/prelink.conf.d/td-agent.conf
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent/logrotate.d
