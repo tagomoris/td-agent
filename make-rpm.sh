@@ -27,6 +27,11 @@ cp Makefile.am $dst
 cp autogen.sh $dst
 cp configure.in $dst
 cp ./td-agent.logrotate $dst
+# locate pre-downloaded gems
+if [ -d ../plugin_gems ]; then
+    mkdir -p $dst/plugins
+    cp ../plugin_gems/*.gem $dst/plugins
+fi
 tar czf $dst.tar.gz $dst
 rm -fR $dst
 
@@ -47,11 +52,6 @@ cp ../redhat/td-agent.init SOURCES
 # locate customized configuration file
 if [ -f ../redhat/td-agent.conf.custom ]; then
     cp ../redhat/td-agent.conf.custom SOURCES
-fi
-# locate pre-downloaded gems
-if [ -d ../plugin_gems ]; then
-    mkdir -p SOURCES/plugins
-    cp ../plugin_gems/*.gem SOURCES/plugins
 fi
 # build
 if [ -z "$rpm_dist" ]; then
