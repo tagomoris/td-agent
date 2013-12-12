@@ -28,9 +28,9 @@ cp autogen.sh $dst
 cp configure.in $dst
 cp ./td-agent.logrotate $dst
 # locate pre-downloaded gems
-if [ -d ../plugin_gems ]; then
+if [ -d plugin_gems ]; then
     mkdir -p $dst/plugins
-    cp ../plugin_gems/*.gem $dst/plugins
+    cp plugin_gems/*.gem $dst/plugins
 fi
 tar czf $dst.tar.gz $dst
 rm -fR $dst
