@@ -37,6 +37,7 @@ BuildRequires: gcc gcc-c++ pkgconfig libtool openssl-devel readline-devel libxsl
 ./autogen.sh
 
 %configure
+make plugins
 make %{?_smp_mflags}
 # make extplugin EXTGEM=fluent-plugin-ping-message-0.1.0.gem
 # make extplugin EXTGEM=...

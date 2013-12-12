@@ -44,6 +44,10 @@ cp ../redhat/td-agent.spec SPECS
 mv ../$dst.tar.gz SOURCES
 # locate init.d script
 cp ../redhat/td-agent.init SOURCES
+# locate customized configuration file
+if [ -f ../redhat/td-agent.conf.custom ]; then
+    cp ../redhat/td-agent.conf.custom SOURCES
+fi
 # build
 if [ -z "$rpm_dist" ]; then
   my_rpmbuild -v -ba --clean SPECS/td-agent.spec

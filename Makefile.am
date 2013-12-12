@@ -74,7 +74,7 @@ install: install-recursive
 	rm -fR $(DEST_RUBY_LIBDIR)/gems/1.9.1/gems/td-*/dist/resources/pkg/td
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent
 	cp -f $(srcdir)/td-agent.conf $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf.tmpl
-	if [ x"$(srcdir)/td-agent.conf.custom" != "x" ]; \
+	if [ -f "$(srcdir)/td-agent.conf.custom" ]; then \
 	    cp -f $(srcdir)/td-agent.conf.custom $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf; \
 	if
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent/prelink.conf.d
