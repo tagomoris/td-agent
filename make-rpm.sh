@@ -17,7 +17,7 @@ yum install -y wget make rpmbuild gcc gcc-c++ readline-devel openssl-devel libxm
 rm -fR fluentd
 git clone git://github.com/fluent/fluentd.git
 cd fluentd
-git checkout $rev
+git checkout -b $rev # -b: don't show message to suggest 'you are not anywhere' of git
 cd ..
 rm -fR $dst
 mv fluentd $dst
@@ -50,8 +50,8 @@ if [ -f ../redhat/td-agent.conf.custom ]; then
 fi
 # locate pre-downloaded gems
 if [ -d ../plugin_gems ]; then
-    mkdir SOURCES/plugins
-    cp ../plugin_gems/*.gem SOURCES
+    mkdir BUILD/$dst/plugins
+    cp ../plugin_gems/*.gem BUILD/$dst/plugins
 fi
 # build
 if [ -z "$rpm_dist" ]; then
