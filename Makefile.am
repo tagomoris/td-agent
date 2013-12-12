@@ -76,7 +76,7 @@ install: install-recursive
 	cp -f $(srcdir)/td-agent.conf $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf.tmpl
 	if [ -f "$(srcdir)/td-agent.conf.custom" ]; then \
 	    cp -f $(srcdir)/td-agent.conf.custom $(DESTDIR)$(sysconfdir)/td-agent/td-agent.conf; \
-	if
+	fi
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent/prelink.conf.d
 	cp -f $(srcdir)/td-agent.prelink.conf $(DESTDIR)$(sysconfdir)/td-agent/prelink.conf.d/td-agent.conf
 	mkdir -p $(DESTDIR)$(sysconfdir)/td-agent/logrotate.d
